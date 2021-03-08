@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+
+before-install:
+  - docker build -t praveenvisva/reactfront -f Dockerfile.dev .
+
+scripts:
+  - docker run -e CI=true praveenvisva/reactfront npm run test -- --coverage
+
