@@ -5,6 +5,18 @@ services:
 before-install:
   - docker build -t praveenvisva/reactfront -f Dockerfile.dev .
 
-scripts:
+script:
   - docker run -e CI=true praveenvisva/reactfront npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: "reactfront"
+  env: "Reactfront-env"
+  bucket_name: "elasticbeanstalk-us-east-1-716666738877"
+  bucket_path: "reactfront"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
 
